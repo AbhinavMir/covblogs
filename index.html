@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;1,300;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+
+    body
+    {
+        font-family: 'Josefin Sans', sans-serif;
+    }
+
+    #container
+    {
+        padding : 10%;
+    }
+
+    a{
+        text-decoration: none;
+        color: #383838;
+    }
+
+    h1
+    {
+        font-weight: 'bold 700 italic';
+    }
+
+    h2
+    {
+        font-weight: 'regular 400';
+    }
+
+    h3
+    {
+        font-weight: 'light';
+    }
+
+    #card
+    {
+        padding: 2%;
+        margin: 4%;
+        border: none;
+        overflow: auto;
+
+        -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+        -moz-box-shadow: rgba(0,0,0,0.3) 0 1px 3px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+        transition: ease-in 0.2s;
+    }
+
+    #card:hover
+    {
+        -webkit-box-shadow: rgba(0, 0, 0, 0.7) 0 2px 3px;
+        -moz-box-shadow: rgba(0,0,0,0.7) 0 2px 3px;
+        box-shadow: rgba(0, 0, 0, 0.7) 0 2px 3px;
+    }
+
+</style>
+</head>
+<body class = "animated fadeIn">
+<div id = "container">
+    
+    <h1>The Coronavirus Times</h1><h2>Every update on the SARS-COV-2 virus.</h2><br><hr><br>
+
+    <div id = "change"></div>
+
+    <script>
+
+        var request = new XMLHttpRequest()
+        
+        request.open('GET', 'https://www.reddit.com/r/coronavirus.json', true)
+        request.onload = function() {
+          // Begin accessing JSON data here
+          var child = JSON.parse(this.response)
+          child = child.data.children;
+          const count = 0;
+          console.log(child);
+          if (request.status >= 200 && request.status < 400) {
+            child.forEach(news => {
+              title = news.data.title;
+              selftext = news.data.selftext;
+              url = news.data.url;
+              /*title = news['1']
+              console.log(title)
+              count = count + 1;
+              */
+
+             console.log(title, selftext)
+             document.getElementById("change").innerHTML = document.getElementById("change").innerHTML + 
+             "<a href = " + url +">" +
+             "<div id = " + "card>" + "<h2>" + title + "</h2>" + "</div>" +
+             "</a>";
+            })
+          } else {
+            console.log('error')
+          }
+
+          
+        }
+        
+        request.send()
+        
+    </script>
+
+    <center>Made with <img src = "heart.png"/> by <a href = "https://github.com/abhinavmir/" style = "text-decoration: underline;">@abhinavmir</a>
+    </div></center>
+</div>
+</body>
+</html>
